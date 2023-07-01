@@ -6,9 +6,10 @@ import {
 } from 'react-notifications';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { addContacts } from '../../redux/thunk';
+
 import { nanoid } from 'nanoid';
 import { getContacts } from 'redux/contactsSelect';
+import { addContact } from 'redux/thunk';
 
 export const ContactForm = () => {
   const [name, setName] = useState('');
@@ -48,7 +49,7 @@ export const ContactForm = () => {
     );
     isNameInContact
       ? NotificationManager.success(`${newContact.name} is already in contacts`)
-      : dispatch(addContacts(newContact));
+      : dispatch(addContact(newContact));
     reset();
   };
   const reset = () => {
