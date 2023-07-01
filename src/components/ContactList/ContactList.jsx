@@ -1,7 +1,7 @@
 import { Contact } from '../Contact/Contact';
 import { List } from './ContactList.styled';
 import { useSelector, useDispatch } from 'react-redux';
-import { getContacts } from 'redux/contactsSelect';
+import { getVisibleContacts } from 'redux/contactsSelect';
 import React from 'react';
 import { useEffect } from 'react';
 import { fetchContacts } from 'redux/thunk';
@@ -9,7 +9,7 @@ import { fetchContacts } from 'redux/thunk';
 export function ContactList() {
   const dispatch = useDispatch();
 
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(getVisibleContacts);
 
   useEffect(() => {
     dispatch(fetchContacts());

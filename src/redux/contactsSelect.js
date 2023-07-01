@@ -1,7 +1,7 @@
-export const getContacts = state => {
+export const getVisibleContacts = state => {
   return state.contacts.contacts.filter(contact =>
     contact.name.toLowerCase().includes(state.contacts.query)
   );
 };
 
-export const getFilter = state => state.contacts.filter;
+export const getContacts = state => state.contacts.filter;
