@@ -9,7 +9,7 @@ import { fetchContacts } from 'redux/thunk';
 export function ContactList() {
   const dispatch = useDispatch();
 
-  const contacts = useSelector(getVisibleContacts);
+  const filteredContacts = useSelector(getVisibleContacts);
 
   useEffect(() => {
     dispatch(fetchContacts());
@@ -17,8 +17,8 @@ export function ContactList() {
 
   return (
     <List>
-      {contacts.map(({ id, name, number }) => (
-        <Contact key={id} id={id} name={name} number={number} />
+      {filteredContacts.map(({ id, name, phone }) => (
+        <Contact key={id} id={id} name={name} number={phone} />
       ))}
     </List>
   );

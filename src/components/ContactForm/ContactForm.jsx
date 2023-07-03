@@ -1,37 +1,23 @@
 import { useState } from 'react';
 import { Form, Label, Input, Button } from './ContactForm.styled';
 
-import {
-  NotificationManager,
-  NotificationContainer,
-} from 'react-notifications';
+// import {
+//   NotificationManager,
+//   NotificationContainer,
+// } from 'react-notifications';
+
+import toast, { Toaster } from 'react-hot-toast';
 
 import { useDispatch, useSelector } from 'react-redux';
-
-import { nanoid } from 'nanoid';
-import { getContacts } from 'redux/contactsSelect';
 import { addContact } from 'redux/thunk';
+import { nanoid } from 'nanoid';
 
-export const ContactForm = () => {
+import { getContacts } from 'redux/contactsSelect';
+
+export function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-
   const dispatch = useDispatch();
-
-  const handleChange = e => {
-    const { name, value } = e.currentTarget;
-
-    switch (name) {
-      case 'name':
-        setName(value);
-        break;
-      case 'number':
-        setNumber(value);
-        break;
-      default:
-        return;
-    }
-  };
 
   const contacts = useSelector(getContacts);
 
@@ -49,10 +35,26 @@ export const ContactForm = () => {
       newContact => newContact.name.toLowerCase() === normalizeName
     );
     isNameInContact
-      ? NotificationManager.success(`${newContact.name} is already in contacts`)
+      ? toast.success(`${newContact.name} is already in contacts`)
       : dispatch(addContact(newContact));
     reset();
   };
+
+  const handleChange = e => {
+    const { name, value } = e.currentTarget;
+
+    switch (name) {
+      case 'name':
+        setName(value);
+        break;
+      case 'number':
+        setNumber(value);
+        break;
+      default:
+        return;
+    }
+  };
+
   const reset = () => {
     setName('');
     setNumber('');
@@ -91,7 +93,7 @@ export const ContactForm = () => {
       </Label>
 
       <Button type="submit">Add contact</Button>
-      <NotificationContainer />
+      <Toaster />
     </Form>
   );
-};
+}
